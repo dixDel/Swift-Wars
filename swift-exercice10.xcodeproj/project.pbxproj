@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5B6088F423ACF47F00F464BA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088F323ACF47F00F464BA /* main.swift */; };
+		5B6088FB23ACF4C200F464BA /* Paladin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088FA23ACF4C200F464BA /* Paladin.swift */; };
+		5B6088FD23ACF50A00F464BA /* ClassePersonnage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */; };
+		5B6088FF23AD194000F464BA /* Equipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088FE23AD194000F464BA /* Equipe.swift */; };
+		5B60890123AD3CA200F464BA /* Personnage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60890023AD3CA200F464BA /* Personnage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,10 @@
 /* Begin PBXFileReference section */
 		5B6088F023ACF47F00F464BA /* swift-exercice10 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "swift-exercice10"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6088F323ACF47F00F464BA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5B6088FA23ACF4C200F464BA /* Paladin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paladin.swift; sourceTree = "<group>"; };
+		5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassePersonnage.swift; sourceTree = "<group>"; };
+		5B6088FE23AD194000F464BA /* Equipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipe.swift; sourceTree = "<group>"; };
+		5B60890023AD3CA200F464BA /* Personnage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personnage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				5B6088F323ACF47F00F464BA /* main.swift */,
+				5B6088FA23ACF4C200F464BA /* Paladin.swift */,
+				5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */,
+				5B6088FE23AD194000F464BA /* Equipe.swift */,
+				5B60890023AD3CA200F464BA /* Personnage.swift */,
 			);
 			path = "swift-exercice10";
 			sourceTree = "<group>";
@@ -120,7 +132,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6088FF23AD194000F464BA /* Equipe.swift in Sources */,
 				5B6088F423ACF47F00F464BA /* main.swift in Sources */,
+				5B6088FB23ACF4C200F464BA /* Paladin.swift in Sources */,
+				5B6088FD23ACF50A00F464BA /* ClassePersonnage.swift in Sources */,
+				5B60890123AD3CA200F464BA /* Personnage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
