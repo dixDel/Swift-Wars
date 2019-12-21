@@ -21,10 +21,10 @@ class Equipe {
         for _ in 0..<nbPersoMax {
             if nbMagiciens < nbMagiciensMax {
                 nbMagiciens += 1
-                persos.append(Magicien(number: nbMagiciens))
+                persos.append(Magicien(faction: name, number: nbMagiciens))
             } else {
                 nbPaladins += 1
-                persos.append(Paladin(number: nbPaladins))
+                persos.append(Paladin(faction: name, number: nbPaladins))
             }
         }
         description()

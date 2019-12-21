@@ -10,9 +10,9 @@ import Foundation
 
 class Paladin: Personnage {
 
-    init(number: Int) {
+    init(faction: String, number: Int) {
         super.init()
-        name = "Pal\(number)"
+        name = "\(faction): Pal\(number)"
         ptsArmureMax = Int.random(in: 100...150)
         ptsArmure = ptsArmureMax
         damageMin = 2

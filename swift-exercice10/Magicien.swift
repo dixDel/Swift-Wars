@@ -1,5 +1,5 @@
 //
-//  Paladin.swift
+//  Magicien.swift
 //  swift-exercice10
 //
 //  Created by Didier Delhaye on 20/12/2019.
@@ -15,9 +15,9 @@ class Magicien: Personnage {
     
     var hurtFighter: Personnage?
     
-    init(number: Int) {
+    init(faction: String, number: Int) {
         super.init()
-        name = "Mago\(number)"
+        name = "\(faction): Mago\(number)"
         ptsArmureMax = Int.random(in: 25...50)
         ptsArmure = ptsArmureMax
         damageMin = 10
@@ -37,7 +37,9 @@ class Magicien: Personnage {
     }
     
     func heal() {
-        hurtFighter!.ptsArmure += self.ptsArmure / 2
-        print("\(name) a soigné \(hurtFighter!.name): \(hurtFighter!.ptsArmure) pts d’armure.")
+        print("HEAL !")
+        let restored = self.ptsArmure * healRatio / 100
+        hurtFighter!.ptsArmure += restored
+        print("\(name) a rendu \(restored) pts à \(hurtFighter!.name): \(hurtFighter!.ptsArmure)/\(hurtFighter!.ptsArmureMax) pts d’armure.")
     }
 }
