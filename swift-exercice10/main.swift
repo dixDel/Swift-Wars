@@ -2,13 +2,14 @@
 //  main.swift
 //  swift-exercice10
 //
-//  Created by Vagrant on 20/12/2019.
+//  Created by Didier Delhaye on 20/12/2019.
 //  Copyright © 2019 Technifutur. All rights reserved.
 //
 
 import Foundation
 
-print("Hello, World of War!")
+print("Swift Wars")
+print("----------")
 
 // init équipes: 100 persos/équipe
 // > 10 à 20 Ass, 15 à 25 Mag, reste Pal
@@ -20,6 +21,7 @@ let lesMauvais = Equipe(name: "les mauvais")
 // paladin1.attaque()
 var isMatchEnded = false
 while !isMatchEnded {
+    //@TODO fair-play: randomly choose first attacker
     lesBons.attaque(ennemi: lesMauvais)
     lesMauvais.attaque(ennemi: lesBons)
     lesBons.buryCorpse()

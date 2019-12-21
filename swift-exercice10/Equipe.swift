@@ -2,7 +2,7 @@
 //  Equipe.swift
 //  swift-exercice10
 //
-//  Created by Vagrant on 20/12/2019.
+//  Created by Didier Delhaye on 20/12/2019.
 //  Copyright © 2019 Technifutur. All rights reserved.
 //
 
@@ -20,11 +20,11 @@ class Equipe {
         self.name = name
         for _ in 0..<nbPersoMax {
             if nbMagiciens < nbMagiciensMax {
-                persos.append(Magicien())
                 nbMagiciens += 1
+                persos.append(Magicien(number: nbMagiciens))
             } else {
-                persos.append(Paladin())
                 nbPaladins += 1
+                persos.append(Paladin(number: nbPaladins))
             }
         }
         description()
@@ -34,6 +34,12 @@ class Equipe {
     func attaque(ennemi: Equipe) {
         if let perso1 = getFighter() {
             if let opponent1 = ennemi.getFighter() {
+                if perso1 is Magicien {
+                    let mago: Magicien = perso1 as! Magicien
+                    if let hurtFighter = persos.first(where: { $0.name != mago.name && $0.isHurt() }) { // ne peut pas se soigner lui-même
+                        mago.hurtFighter = hurtFighter
+                    }
+                }
                 perso1.attaque(ennemi: opponent1)
             }
         }
