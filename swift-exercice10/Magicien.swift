@@ -8,19 +8,23 @@
 
 import Foundation
 
-class Paladin: Personnage {
+class Magicien: Personnage {
+    
+    let chanceHeal = 15
+    let healRatio = 50 // 50% de son total de vie
     
     override init() {
         super.init()
-        name = "Pal"
-        ptsArmure = Int.random(in: 100...150)
-        damageMin = 2
-        damageMax = 5
-        chanceCrit = 5
-        critMultiplier = 2
+        name = "Mago"
+        ptsArmure = Int.random(in: 25...50)
+        damageMin = 10
+        damageMax = 25
+        chanceCrit = 15
+        critMultiplier = 4
     }
     
     override func attaque(ennemi: Personnage) {
+        //@TODO check for alliés à soigner
         super.makeDamage(ennemi: ennemi)
     }
 }

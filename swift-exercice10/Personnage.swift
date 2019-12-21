@@ -25,11 +25,22 @@ class Personnage: ClassePersonnage {
         preconditionFailure("Must be overriden")
     }
     
+    func makeDamage(ennemi: Personnage) {
+        var damage = Int.random(in: damageMin...damageMax)
+        if Int.random(in: 1...100) <= chanceCrit {
+            damage = damage * critMultiplier
+            print("\(name) a infligé un coup CRITIQUE !")
+        }
+        print("\(name) a infligé à \(ennemi.name) \(damage) pts de dommage")
+        ennemi.reduceArmor(damage: damage)
+    }
+    
     func reduceArmor(damage: Int) {
-        preconditionFailure("Must be overriden")
+        ptsArmure -= damage
+        print("\(name) a \(ptsArmure) pts d’armure.")
     }
     
     func isKilled() -> Bool {
-        preconditionFailure("Must be overriden")
+        return ptsArmure <= 0
     }
 }
