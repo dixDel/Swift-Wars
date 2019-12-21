@@ -10,21 +10,34 @@ import Foundation
 
 class Magicien: Personnage {
     
-    let chanceHeal = 15
+    //let chanceHeal = 15 // identique à chanceCrit
     let healRatio = 50 // 50% de son total de vie
     
-    override init() {
+    var hurtFighter: Personnage?
+    
+    init(number: Int) {
         super.init()
-        name = "Mago"
-        ptsArmure = Int.random(in: 25...50)
+        name = "Mago\(number)"
+        ptsArmureMax = Int.random(in: 25...50)
+        ptsArmure = ptsArmureMax
         damageMin = 10
         damageMax = 25
         chanceCrit = 15
         critMultiplier = 4
     }
     
-    override func attaque(ennemi: Personnage) {
-        //@TODO check for alliés à soigner
-        super.makeDamage(ennemi: ennemi)
+    override func criticalAction(originalDamage: Int) -> Int {
+        var finalDamage = 0
+        if hurtFighter != nil {
+            heal()
+        } else {
+            finalDamage = super.criticalAction(originalDamage: originalDamage)
+        }
+        return finalDamage
+    }
+    
+    func heal() {
+        hurtFighter!.ptsArmure += self.ptsArmure / 2
+        print("\(name) a soigné \(hurtFighter!.name): \(hurtFighter!.ptsArmure) pts d’armure.")
     }
 }

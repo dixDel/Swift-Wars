@@ -9,7 +9,9 @@
 import Foundation
 
 protocol ClassePersonnage {
-    var name: String { get set }
+    var name: String { get }
+    var ptsArmureMax: Int { get }
+    
     var ptsArmure: Int { get set }
     var ptsAttaque: Int { get set }
     var chanceCrit: Int { get set }
@@ -21,6 +23,8 @@ protocol ClassePersonnage {
     func attaque(ennemi: Personnage)
     
     func reduceArmor(damage: Int)
+    
+    func isHurt() -> Bool
     
     func isKilled() -> Bool
 }

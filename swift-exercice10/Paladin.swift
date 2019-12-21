@@ -9,18 +9,16 @@
 import Foundation
 
 class Paladin: Personnage {
-    
-    override init() {
+
+    init(number: Int) {
         super.init()
-        name = "Pal"
-        ptsArmure = Int.random(in: 100...150)
+        name = "Pal\(number)"
+        ptsArmureMax = Int.random(in: 100...150)
+        ptsArmure = ptsArmureMax
         damageMin = 2
         damageMax = 5
         chanceCrit = 5
         critMultiplier = 2
     }
     
-    override func attaque(ennemi: Personnage) {
-        super.makeDamage(ennemi: ennemi)
-    }
 }

@@ -8,7 +8,8 @@
 
 import Foundation
 
-print("Hello, World of War!")
+print("Swift Wars")
+print("----------")
 
 // init équipes: 100 persos/équipe
 // > 10 à 20 Ass, 15 à 25 Mag, reste Pal
