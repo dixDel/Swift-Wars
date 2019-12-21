@@ -12,6 +12,7 @@
 		5B6088FD23ACF50A00F464BA /* ClassePersonnage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */; };
 		5B6088FF23AD194000F464BA /* Equipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6088FE23AD194000F464BA /* Equipe.swift */; };
 		5B60890123AD3CA200F464BA /* Personnage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60890023AD3CA200F464BA /* Personnage.swift */; };
+		5B7D928C23AE3B2800CCA8FD /* Magicien.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D928B23AE3B2800CCA8FD /* Magicien.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassePersonnage.swift; sourceTree = "<group>"; };
 		5B6088FE23AD194000F464BA /* Equipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipe.swift; sourceTree = "<group>"; };
 		5B60890023AD3CA200F464BA /* Personnage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personnage.swift; sourceTree = "<group>"; };
+		5B7D928B23AE3B2800CCA8FD /* Magicien.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magicien.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			children = (
 				5B6088F323ACF47F00F464BA /* main.swift */,
 				5B6088FA23ACF4C200F464BA /* Paladin.swift */,
+				5B7D928B23AE3B2800CCA8FD /* Magicien.swift */,
 				5B6088FC23ACF50A00F464BA /* ClassePersonnage.swift */,
 				5B6088FE23AD194000F464BA /* Equipe.swift */,
 				5B60890023AD3CA200F464BA /* Personnage.swift */,
@@ -136,6 +139,7 @@
 				5B6088F423ACF47F00F464BA /* main.swift in Sources */,
 				5B6088FB23ACF4C200F464BA /* Paladin.swift in Sources */,
 				5B6088FD23ACF50A00F464BA /* ClassePersonnage.swift in Sources */,
+				5B7D928C23AE3B2800CCA8FD /* Magicien.swift in Sources */,
 				5B60890123AD3CA200F464BA /* Personnage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

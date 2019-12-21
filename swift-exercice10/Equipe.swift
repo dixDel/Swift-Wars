@@ -10,14 +10,24 @@ import Foundation
 
 class Equipe {
     let name: String
+    let nbMagiciensMax = Int.random(in: 15...25)
+    
     var persos = [Personnage]()
+    var nbPaladins = 0
+    var nbMagiciens = 0
     
     init(name: String, nbPersoMax: Int = 100) {
         self.name = name
         for _ in 0..<nbPersoMax {
-            persos.append(Paladin())
+            if nbMagiciens < nbMagiciensMax {
+                persos.append(Magicien())
+                nbMagiciens += 1
+            } else {
+                persos.append(Paladin())
+                nbPaladins += 1
+            }
         }
-        print("L’équipe \"\(self.name)\" est complète: \(persos.count) persos prêts à poutrer!")
+        description()
     }
     
     // @TODO event listener qui check résultat de l’attaque
@@ -46,5 +56,9 @@ class Equipe {
     
     func nbSurvivants() -> Int {
         return persos.count
+    }
+    
+    func description() {
+        print("L’équipe \(name) est composée de \(nbPaladins) paladins et de \(nbMagiciens) magiciens.")
     }
 }
