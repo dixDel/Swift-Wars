@@ -2,7 +2,7 @@
 //  main.swift
 //  swift-exercice10
 //
-//  Created by Vagrant on 20/12/2019.
+//  Created by Didier Delhaye on 20/12/2019.
 //  Copyright © 2019 Technifutur. All rights reserved.
 //
 
@@ -20,6 +20,7 @@ let lesMauvais = Equipe(name: "les mauvais")
 // paladin1.attaque()
 var isMatchEnded = false
 while !isMatchEnded {
+    //@TODO fair-play: randomly choose first attacker
     lesBons.attaque(ennemi: lesMauvais)
     lesMauvais.attaque(ennemi: lesBons)
     lesBons.buryCorpse()

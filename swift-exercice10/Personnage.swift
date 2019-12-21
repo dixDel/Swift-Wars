@@ -2,7 +2,7 @@
 //  Personnage.swift
 //  swift-exercice10
 //
-//  Created by Vagrant on 20/12/2019.
+//  Created by Didier Delhaye on 20/12/2019.
 //  Copyright © 2019 Technifutur. All rights reserved.
 //
 
