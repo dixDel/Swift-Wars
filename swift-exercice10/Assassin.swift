@@ -10,6 +10,8 @@ import Foundation
 
 class Assassin: Personnage {
     
+    let chanceEvade = 15
+    
     init(faction: String, number: Int) {
         super.init()
         name = "\(faction): Assassin\(number)"
@@ -19,6 +21,15 @@ class Assassin: Personnage {
         damageMax = 30
         chanceCrit = 30
         critMultiplier = 2
+    }
+    
+    func evadeAttack(ennemi: Personnage) -> Bool {
+        var evadeAttack = false
+        if Int.random(in: 1...100) <= chanceEvade {
+            evadeAttack = true
+            print("\(name) a esquivé l’attaque de \(ennemi.name)!")
+        }
+        return evadeAttack
     }
     
 }

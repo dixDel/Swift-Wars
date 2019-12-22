@@ -45,7 +45,13 @@ class Equipe {
                         mago.hurtFighter = hurtFighter
                     }
                 }
-                perso1.attaque(ennemi: opponent1)
+                var ass: Assassin?
+                if opponent1 is Assassin {
+                    ass = opponent1 as? Assassin
+                }
+                if (ass == nil || !(ass?.evadeAttack(ennemi: perso1) ?? false))  {
+                    perso1.attaque(ennemi: opponent1)
+                }
             }
         }
     }
