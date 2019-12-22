@@ -10,16 +10,21 @@ import Foundation
 
 class Equipe {
     let name: String
+    let nbAssassinsMax = Int.random(in: 10...20)
     let nbMagiciensMax = Int.random(in: 15...25)
     
     var persos = [Personnage]()
     var nbPaladins = 0
     var nbMagiciens = 0
+    var nbAssassins = 0
     
     init(name: String, nbPersoMax: Int = 100) {
         self.name = name
         for _ in 0..<nbPersoMax {
-            if nbMagiciens < nbMagiciensMax {
+            if nbAssassins < nbAssassinsMax {
+                nbAssassins += 1
+                persos.append(Assassin(faction: name, number: nbAssassins))
+            } else if nbMagiciens < nbMagiciensMax {
                 nbMagiciens += 1
                 persos.append(Magicien(faction: name, number: nbMagiciens))
             } else {
@@ -65,6 +70,6 @@ class Equipe {
     }
     
     func description() {
-        print("L’équipe \(name) est composée de \(nbPaladins) paladins et de \(nbMagiciens) magiciens.")
+        print("Équipe \(name): \(nbPaladins) paladins, \(nbMagiciens) magiciens, \(nbAssassins) assassins.")
     }
 }
