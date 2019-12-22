@@ -56,7 +56,7 @@ class Personnage: ClassePersonnage {
     
     func reduceArmor(damage: Int) {
         ptsArmure -= damage
-        print("\(name) a \(ptsArmure) pts d’armure.")
+        print("\(name) a \(ptsArmure)/\(ptsArmureMax) pts d’armure.")
     }
     
     func isHurt() -> Bool {
