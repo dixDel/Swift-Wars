@@ -18,15 +18,18 @@ let lesMauvais = Equipe(name: "les mauvais")
 
 // chaque tour jusqu’à ce qu’une équipe n’ait plus de perso:
 // 5 persos vs 5 persos (sélection aléatoire)
-// paladin1.attaque()
 var isMatchEnded = false
+var cptRound = 1
 while !isMatchEnded {
     //@TODO fair-play: randomly choose first attacker
+    print("Round \(cptRound)")
     lesBons.attaque(ennemi: lesMauvais)
-    lesMauvais.attaque(ennemi: lesBons)
-    lesBons.buryCorpse()
-    lesMauvais.buryCorpse()
+    if lesMauvais.isStillFighting() {
+        lesMauvais.attaque(ennemi: lesBons)
+    }
     isMatchEnded = !lesBons.isStillFighting() || !lesMauvais.isStillFighting()
+    cptRound += 1
+    print()
 }
 print("Guerre terminée !")
 print("Survivants: \(lesBons.nbSurvivants()) bons, \(lesMauvais.nbSurvivants()) mauvais.")
