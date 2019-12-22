@@ -18,14 +18,13 @@ let lesMauvais = Equipe(name: "les mauvais")
 
 // chaque tour jusqu’à ce qu’une équipe n’ait plus de perso:
 // 5 persos vs 5 persos (sélection aléatoire)
-// paladin1.attaque()
 var isMatchEnded = false
 while !isMatchEnded {
     //@TODO fair-play: randomly choose first attacker
     lesBons.attaque(ennemi: lesMauvais)
     lesMauvais.attaque(ennemi: lesBons)
-    lesBons.buryCorpse()
-    lesMauvais.buryCorpse()
+    lesBons.buryCorpses()
+    lesMauvais.buryCorpses()
     isMatchEnded = !lesBons.isStillFighting() || !lesMauvais.isStillFighting()
 }
 print("Guerre terminée !")

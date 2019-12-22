@@ -12,6 +12,7 @@ class Equipe {
     let name: String
     let nbAssassinsMax = Int.random(in: 10...20)
     let nbMagiciensMax = Int.random(in: 15...25)
+    let fightingTeamSize = 5
     
     var persos = [Personnage]()
     var nbPaladins = 0
@@ -36,6 +37,7 @@ class Equipe {
     }
     
     // @TODO event listener qui check résultat de l’attaque
+    // event listener sur Assassin: quand attaqué, tente une esquive
     func attaque(ennemi: Equipe) {
         if let perso1 = getFighter() {
             if let opponent1 = ennemi.getFighter() {
@@ -56,11 +58,27 @@ class Equipe {
         }
     }
     
-    func getFighter() -> Personnage? {
-        return persos.randomElement()
+    func getFightingTeam() -> [Personnage] {
+        var team: [Personnage] = [Personnage]()
+        for _ in 1...fightingTeamSize {
+            if let fighter = getFighter() {
+                team.append(fighter)
+            } else {
+                print("L’équipe \(name) n’a pas assez de combattants: \(persos.count) !")
+            }
+        }
+        return team
     }
     
-    func buryCorpse() {
+    func getFighter() -> Personnage? {
+        return persos.remove(at: Int.random(in: 0...persos.count))
+    }
+    
+    func dismissFightingTeam(team: [Personnage]) {
+        persos.append(contentsOf: team)
+    }
+    
+    func buryCorpses() {
         if let index = persos.firstIndex(where: { $0.isKilled() }) {
             print("\(persos[index].name) a rendu les armes...")
             persos.remove(at: index)
