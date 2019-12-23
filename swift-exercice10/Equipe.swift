@@ -8,16 +8,39 @@
 
 import Foundation
 
-class Equipe {
+class Equipe: CustomStringConvertible {
     let name: String
     let nbAssassinsMax = Int.random(in: 10...20)
     let nbMagiciensMax = Int.random(in: 15...25)
     let fightingTeamSize = 5
+    let honorSentences: [String: [String]] = [
+        "Paladin": [
+            "%@ a rendu l’âme...",
+            "%@ a rendu les armes...",
+            "%@ n’est plus, honorez sa mémoire !",
+            "%@ mange les pissenlits par la racine.",
+            "Rest in pieces, %@"
+        ],
+        "Magicien": [
+            "%@ n’est plus, son bâton s’est brisé...",
+            "Non, tu n’étais pas Gandalf, %@.",
+            "%@ a déversé toute sa mana..."
+        ],
+        "Assassin": [
+            "Celle-là a eu du mal à passer, %@ !",
+            "%@ est au fond du trou.",
+            "Personne ne se souviendra de ce fourbe %@..."
+        ]
+    ]
     
     var persos = [Personnage]()
     var nbPaladins = 0
     var nbMagiciens = 0
     var nbAssassins = 0
+
+    var description: String {
+        return "Équipe \(name): \(nbPaladins) paladins, \(nbMagiciens) magiciens, \(nbAssassins) assassins."
+    }
     
     init(name: String, nbPersoMax: Int = 100) {
         self.name = name
@@ -33,7 +56,6 @@ class Equipe {
                 persos.append(Paladin(faction: name, number: nbPaladins))
             }
         }
-        description()
     }
     
     // @TODO event listener qui check résultat de l’attaque
@@ -100,7 +122,7 @@ class Equipe {
         while hasFighters && cpt < fightingTeamSize {
             if let fighter = getFighter() {
                 team.append(fighter)
-                print("\(fighter.name)")
+                print(fighter)
             } else {
                 hasFighters = false
                 print("Plus de combattants !")
@@ -130,7 +152,7 @@ class Equipe {
             var isKilled = false
             if fighter.isKilled() {
                 isKilled = true
-                print("\(fighter.name) a rendu les armes...")
+                giveHonorsTo(fighter: fighter)
             }
             return isKilled
         }
@@ -145,7 +167,7 @@ class Equipe {
         return persos.count
     }
     
-    func description() {
-        print("Équipe \(name): \(nbPaladins) paladins, \(nbMagiciens) magiciens, \(nbAssassins) assassins.")
+    func giveHonorsTo(fighter: Personnage) {
+        print(String(format: honorSentences["\(type(of: fighter))"]!.randomElement()!, fighter.name))
     }
 }

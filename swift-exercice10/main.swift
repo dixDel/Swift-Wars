@@ -15,6 +15,9 @@ print("----------")
 // > 10 à 20 Ass, 15 à 25 Mag, reste Pal
 let lesBons = Equipe(name: "les bons")
 let lesMauvais = Equipe(name: "les mauvais")
+print(lesBons)
+print(lesMauvais)
+print()
 
 // chaque tour jusqu’à ce qu’une équipe n’ait plus de perso:
 // 5 persos vs 5 persos (sélection aléatoire)
