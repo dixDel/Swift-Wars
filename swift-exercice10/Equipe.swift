@@ -76,7 +76,9 @@ class Equipe {
                 if foe is Assassin {
                     ass = foe as? Assassin
                 }
-                if (ass == nil || !(ass?.evadeAttack(ennemi: fighter) ?? false)) {
+                // ass ne peut pas être nul dans la seconde partie du OR
+                // car n’est pas évalué si première partie est true
+                if (ass == nil || !(ass!.evadeAttack(ennemi: fighter))) {
                     fighter.attaque(ennemi: foe)
                 }
             } else {
