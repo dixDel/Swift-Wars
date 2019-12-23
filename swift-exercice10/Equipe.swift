@@ -70,9 +70,7 @@ class Equipe {
             if let foe: Personnage = getOpponent(foes: foes) {
                 if fighter is Magicien {
                     let mago: Magicien = fighter as! Magicien
-                    if let hurtFighter = persos.first(where: { $0.name != mago.name && $0.isHurt() }) { // ne peut pas se soigner lui-même
-                        mago.hurtFighter = hurtFighter
-                    }
+                    mago.team = team
                 }
                 var ass: Assassin?
                 if foe is Assassin {
