@@ -50,7 +50,7 @@ class Personnage: ClassePersonnage {
     }
     
     func criticalAction(originalDamage: Int) -> Int {
-        print("Coup CRITIQUE !")
+        print("\(name) a fait un coup CRITIQUE !")
         return originalDamage * critMultiplier
     }
     

@@ -22,6 +22,7 @@ var isMatchEnded = false
 var cptRound = 1
 while !isMatchEnded {
     //@TODO fair-play: randomly choose first attacker
+    //utiliser les mêmes équipes dans un round (défenseurs attaquent ensuite)
     print("Round \(cptRound)")
     lesBons.attaque(ennemi: lesMauvais)
     if lesMauvais.isStillFighting() {
@@ -33,9 +34,3 @@ while !isMatchEnded {
 }
 print("Guerre terminée !")
 print("Survivants: \(lesBons.nbSurvivants()) bons, \(lesMauvais.nbSurvivants()) mauvais.")
-
-// Concerne pas ici, mais les classes respectives
-// ordre priorité attaques:
-// - Mag/Pal: paladins, assassins, magiciens
-// - Ass: mag, pal, ass
-// -- Attaque du mag: 15% de chances de soigner (50% de son total de vie) OU 15 %
