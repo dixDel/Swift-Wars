@@ -17,7 +17,7 @@ class Magicien: Personnage {
     
     init(faction: String, number: Int) {
         super.init()
-        name = "\(faction): Mago\(number)"
+        name = "\(faction) - Mago\(number)"
         ptsArmureMax = Int.random(in: 25...50)
         ptsArmure = ptsArmureMax
         damageMin = 10

@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Personnage: ClassePersonnage {    
+class Personnage: ClassePersonnage, CustomStringConvertible {
+    
     var name: String = ""
     var damageMin: Int = 0
     var damageMax: Int = 0
@@ -38,7 +39,11 @@ class Personnage: ClassePersonnage {
     
     var xp: Double = 0
     
-    func attaque(ennemi: Personnage) {
+    var description: String {
+        return "\(name): \(ptsArmure) pts d’armure"
+    }
+    
+    func attack(ennemi: Personnage) {
         var damage = Int.random(in: damageMin...damageMax)
         if Int.random(in: 1...100) <= chanceCrit {
             damage = criticalAction(originalDamage: damage)
@@ -66,4 +71,5 @@ class Personnage: ClassePersonnage {
     func isKilled() -> Bool {
         return ptsArmure <= 0
     }
+    
 }

@@ -20,7 +20,7 @@ protocol ClassePersonnage {
     var damageMin: Int { get set }
     var damageMax: Int { get set }
     
-    func attaque(ennemi: Personnage)
+    func attack(ennemi: Personnage)
     
     func reduceArmor(damage: Int)
     
