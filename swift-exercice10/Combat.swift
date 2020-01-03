@@ -29,15 +29,30 @@ class Combat {
     // 5 persos vs 5 persos (sélection aléatoire)
     func playRound() -> Bool {
         cptRound += 1
-        //utiliser les mêmes équipes dans un round (défenseurs attaquent ensuite)
         print("Round \(cptRound)")
+        
         drawTurns()
-        firstAttacker.attaque(ennemi: secondAttacker)
+        
+        firstAttacker.getFightingTeam()
+        secondAttacker.getFightingTeam()
+        
+        launchAttack(teamA: firstAttacker, teamB: secondAttacker)
+        
         if secondAttacker.isStillFighting() {
-            secondAttacker.attaque(ennemi: firstAttacker)
+            print("Riposte !")
+            launchAttack(teamA: secondAttacker, teamB: firstAttacker)
         }
+        
+        firstAttacker.dismissFightingTeam()
+        secondAttacker.dismissFightingTeam()
+        
         print()
         return !firstAttacker.isStillFighting() || !secondAttacker.isStillFighting()
+    }
+    
+    func launchAttack(teamA: Equipe, teamB: Equipe) {
+        teamA.attack(foeTeam: teamB.getFightingTeam())
+        teamB.buryTheDeads()
     }
     
     func showResults() {
