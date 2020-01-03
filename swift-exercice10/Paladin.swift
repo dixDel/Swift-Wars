@@ -12,7 +12,7 @@ class Paladin: Personnage {
 
     init(faction: String, number: Int) {
         super.init()
-        name = "\(faction): Pal\(number)"
+        name = "\(faction) - Pal\(number)"
         ptsArmureMax = Int.random(in: 100...150)
         ptsArmure = ptsArmureMax
         damageMin = 2

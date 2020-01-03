@@ -14,7 +14,7 @@ class Assassin: Personnage {
     
     init(faction: String, number: Int) {
         super.init()
-        name = "\(faction): Assassin\(number)"
+        name = "\(faction) - Assassin\(number)"
         ptsArmureMax = Int.random(in: 35...75)
         ptsArmure = ptsArmureMax
         damageMin = 15
@@ -27,7 +27,7 @@ class Assassin: Personnage {
         var evadeAttack = false
         if Int.random(in: 1...100) <= chanceEvade {
             evadeAttack = true
-            print("\(name) a esquivé l’attaque de \(ennemi.name)!")
+            print("ESQUIVE ! \(name) a esquivé l’attaque de \(ennemi.name)!")
         }
         return evadeAttack
     }

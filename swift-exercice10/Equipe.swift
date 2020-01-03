@@ -8,110 +8,149 @@
 
 import Foundation
 
-class Equipe {
+class Equipe: CustomStringConvertible {
     let name: String
     let nbAssassinsMax = Int.random(in: 10...20)
     let nbMagiciensMax = Int.random(in: 15...25)
     let fightingTeamSize = 5
+    let honorSentences: [String: [String]] = [
+        "Paladin": [
+            "%@ a rendu l’âme...",
+            "%@ a rendu les armes...",
+            "%@ n’est plus, honorez sa mémoire !",
+            "%@ mange les pissenlits par la racine.",
+            "Rest in pieces, %@"
+        ],
+        "Magicien": [
+            "%@ n’est plus, son bâton s’est brisé...",
+            "Non, tu n’étais pas Gandalf, %@.",
+            "%@ a déversé toute sa mana..."
+        ],
+        "Assassin": [
+            "Celle-là a eu du mal à passer, %@ !",
+            "%@ est au fond du trou.",
+            "Personne ne se souviendra de ce fourbe %@..."
+        ]
+    ]
     
-    var persos = [Personnage]()
+    var fighters = [Personnage]()
     var nbPaladins = 0
     var nbMagiciens = 0
     var nbAssassins = 0
+    private var fightingTeam = [Personnage]()
+
+    var description: String {
+        return "Équipe \(name): \(nbPaladins) paladins, \(nbMagiciens) magiciens, \(nbAssassins) assassins."
+    }
     
     init(name: String, nbPersoMax: Int = 100) {
         self.name = name
         for _ in 0..<nbPersoMax {
             if nbAssassins < nbAssassinsMax {
                 nbAssassins += 1
-                persos.append(Assassin(faction: name, number: nbAssassins))
+                fighters.append(Assassin(faction: name, number: nbAssassins))
             } else if nbMagiciens < nbMagiciensMax {
                 nbMagiciens += 1
-                persos.append(Magicien(faction: name, number: nbMagiciens))
+                fighters.append(Magicien(faction: name, number: nbMagiciens))
             } else {
                 nbPaladins += 1
-                persos.append(Paladin(faction: name, number: nbPaladins))
+                fighters.append(Paladin(faction: name, number: nbPaladins))
             }
         }
-        description()
     }
     
     // @TODO event listener qui check résultat de l’attaque
     // event listener sur Assassin: quand attaqué, tente une esquive
-    func attaque(ennemi: Equipe) {
-        var team = getFightingTeam()
-        var foes = ennemi.getFightingTeam()
+    func attack(foeTeam: [Personnage]) {
         var isFoeFighting = true
-        var cpt = 0
+        var cnt = 0
         
-        while isFoeFighting && cpt < team.count {
-            let fighter = team[cpt]
-            // ordre d’attaque:
-            // - Pal, Mag: Pal, Ass, Mag
-            // - Ass: Mag, Pal, Ass
-            if fighter is Paladin || fighter is Magicien {
-                foes.sort { (perso1, perso2) -> Bool in
-                    var isFirst = true
-                    if perso1 is Assassin && perso2 is Paladin || perso1 is Magicien {
-                            isFirst = false
-                    }
-                    return isFirst
-                }
-            } else {
-                foes.sort { (perso1, perso2) -> Bool in
-                    var isFirst = true
-                    if perso1 is Paladin && perso2 is Magicien || perso1 is Assassin {
-                        isFirst = false
-                    }
-                    return isFirst
-                }
-            }
+        print("L’attaque de \"\(name)\" commence !")
+        while isFoeFighting && cnt < fightingTeam.count {
+            let fighter = fightingTeam[cnt]
             
-            if let foe: Personnage = getOpponent(foes: foes) {
-                if fighter is Magicien {
-                    let mago: Magicien = fighter as! Magicien
-                    mago.team = team
-                }
-                var ass: Assassin?
-                if foe is Assassin {
-                    ass = foe as? Assassin
-                }
-                if (ass == nil || !(ass?.evadeAttack(ennemi: fighter) ?? false)) {
-                    fighter.attaque(ennemi: foe)
-                }
-            } else {
-                print("Plus d’ennemis en état de combattre !")
-                isFoeFighting = false
-            }
-            cpt += 1
+            let sortedFoes = sortFoes(fighter: fighter, foes: foeTeam)
+            
+            isFoeFighting = attackFoe(fighter: fighter, foes: sortedFoes)
+            
+            cnt += 1
         }
-        
-        dismissFightingTeam(team: &team)
-        ennemi.dismissFightingTeam(team: &foes)
+    }
+    
+    func attackFoe(fighter: Personnage, foes: [Personnage]) -> Bool {
+        var isFoeFighting = true
+        if let foe: Personnage = getOpponent(foes: foes) {
+            if fighter is Magicien {
+                let mago: Magicien = fighter as! Magicien
+                mago.team = fightingTeam
+            }
+            var ass: Assassin?
+            if foe is Assassin {
+                ass = foe as? Assassin
+            }
+            // ass ne peut pas être nul dans la seconde partie du OR
+            // car n’est pas évalué si première partie est true
+            if (ass == nil || !(ass!.evadeAttack(ennemi: fighter))) {
+                fighter.attack(ennemi: foe)
+            }
+            giveHonorsTo(fighter: foe)
+        } else {
+            print("Plus d’ennemis en état de combattre !")
+            isFoeFighting = false
+        }
+        return isFoeFighting
+    }
+    
+    func sortFoes(fighter: Personnage, foes: [Personnage]) -> [Personnage] {
+        var sortedFoes = foes
+        // ordre d’attaque:
+        // - Pal, Mag: Pal, Ass, Mag
+        // - Ass: Mag, Pal, Ass
+        if fighter is Paladin || fighter is Magicien {
+            sortedFoes.sort { (perso1, perso2) -> Bool in
+                var isFirst = true
+                if perso1 is Assassin && perso2 is Paladin || perso1 is Magicien {
+                        isFirst = false
+                }
+                return isFirst
+            }
+        } else {
+            sortedFoes.sort { (perso1, perso2) -> Bool in
+                var isFirst = true
+                if perso1 is Paladin && perso2 is Magicien || perso1 is Assassin {
+                    isFirst = false
+                }
+                return isFirst
+            }
+        }
+        return sortedFoes
     }
     
     func getFightingTeam() -> [Personnage] {
-        var team: [Personnage] = [Personnage]()
-        var hasFighters = true
-        var cpt = 0
-        print("Équipe de \(name):")
-        while hasFighters && cpt < fightingTeamSize {
-            if let fighter = getFighter() {
-                team.append(fighter)
-                print("\(fighter.name)")
-            } else {
-                hasFighters = false
-                print("Plus de combattants !")
+        if fightingTeam.isEmpty && !fighters.isEmpty {
+            var team = [Personnage]()
+            var hasFighters = true
+            var cnt = 0
+            print("Équipe de \"\(name)\":")
+            while hasFighters && cnt < fightingTeamSize {
+                if let fighter = getFighter() {
+                    team.append(fighter)
+                    print(fighter)
+                } else {
+                    hasFighters = false
+                    print("Plus de combattants !")
+                }
+                cnt += 1
             }
-            cpt += 1
+            fightingTeam = team
         }
-        return team
+        return fightingTeam
     }
     
     func getFighter() -> Personnage? {
         var fighter: Personnage? = nil
-        if persos.count > 0 {
-            fighter = persos.remove(at: Int.random(in: 0..<persos.count))
+        if fighters.count > 0 {
+            fighter = fighters.remove(at: Int.random(in: 0..<fighters.count))
         }
         return fighter
     }
@@ -123,27 +162,28 @@ class Equipe {
         })
     }
     
-    func dismissFightingTeam(team: inout [Personnage]) {
-        team.removeAll { (fighter) -> Bool in
-            var isKilled = false
-            if fighter.isKilled() {
-                isKilled = true
-                print("\(fighter.name) a rendu les armes...")
-            }
-            return isKilled
+    func buryTheDeads() {
+        fightingTeam.removeAll {
+            $0.isKilled()
         }
-        persos += team
+    }
+    
+    func dismissFightingTeam() {
+        fighters += fightingTeam
+        fightingTeam.removeAll()
     }
     
     func isStillFighting() -> Bool {
-        return persos.count > 0
+        return fighters.count > 0
     }
     
     func nbSurvivants() -> Int {
-        return persos.count
+        return fighters.count
     }
     
-    func description() {
-        print("Équipe \(name): \(nbPaladins) paladins, \(nbMagiciens) magiciens, \(nbAssassins) assassins.")
+    func giveHonorsTo(fighter: Personnage) {
+        if fighter.isKilled() {
+            print(String(format: honorSentences["\(type(of: fighter))"]!.randomElement()!, fighter.name))
+        }
     }
 }
