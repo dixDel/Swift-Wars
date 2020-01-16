@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol FighterDelegate {
+    func takeABlow()
+}
+
 class Equipe: CustomStringConvertible {
     let name: String
     let nbAssassinsMax = Int.random(in: 10...20)
@@ -79,20 +83,16 @@ class Equipe: CustomStringConvertible {
     
     func attackFoe(fighter: Personnage, foes: [Personnage]) -> Bool {
         var isFoeFighting = true
+        
         if let foe: Personnage = getOpponent(foes: foes) {
+            
+            fighter.delegate = foe
+            
             if fighter is Magicien {
                 let mago: Magicien = fighter as! Magicien
                 mago.team = fightingTeam
             }
-            var ass: Assassin?
-            if foe is Assassin {
-                ass = foe as? Assassin
-            }
-            // ass ne peut pas être nul dans la seconde partie du OR
-            // car n’est pas évalué si première partie est true
-            if (ass == nil || !(ass!.evadeAttack(ennemi: fighter))) {
-                fighter.attack(ennemi: foe)
-            }
+            fighter.attack(ennemi: foe)
             giveHonorsTo(fighter: foe)
         } else {
             print("Plus d’ennemis en état de combattre !")

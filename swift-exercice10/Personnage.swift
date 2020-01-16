@@ -8,7 +8,13 @@
 
 import Foundation
 
-class Personnage: ClassePersonnage, CustomStringConvertible {
+protocol AttackDelegate {
+    func attacked() -> Bool
+}
+
+class Personnage: ClassePersonnage, CustomStringConvertible, AttackDelegate {
+    
+    var delegate: AttackDelegate?
     
     var name: String = ""
     var damageMin: Int = 0
@@ -45,12 +51,17 @@ class Personnage: ClassePersonnage, CustomStringConvertible {
     
     func attack(ennemi: Personnage) {
         var damage = Int.random(in: damageMin...damageMax)
+        
         if Int.random(in: 1...100) <= chanceCrit {
             damage = criticalAction(originalDamage: damage)
         }
         if damage > 0 {
-            print("\(name) a infligé à \(ennemi.name) \(damage) pts de dommage")
-            ennemi.reduceArmor(damage: damage)
+            if self.delegate?.attacked() ?? true {
+                print("\(name) a infligé à \(ennemi.name) \(damage) pts de dommage")
+                ennemi.reduceArmor(damage: damage)
+            } else {
+                print("ESQUIVE ! \(ennemi.name) a esquivé l’attaque de \(self.name)!")
+            }
         }
     }
     
@@ -70,6 +81,11 @@ class Personnage: ClassePersonnage, CustomStringConvertible {
     
     func isKilled() -> Bool {
         return ptsArmure <= 0
+    }
+    
+    func attacked() -> Bool {
+        print("\(self.name): JE SUIS ATTAQUÉ!")
+        return true
     }
     
 }

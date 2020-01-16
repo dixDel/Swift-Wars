@@ -23,13 +23,16 @@ class Assassin: Personnage {
         critMultiplier = 2
     }
     
-    func evadeAttack(ennemi: Personnage) -> Bool {
+    func evadeAttack() -> Bool {
         var evadeAttack = false
         if Int.random(in: 1...100) <= chanceEvade {
             evadeAttack = true
-            print("ESQUIVE ! \(name) a esquivé l’attaque de \(ennemi.name)!")
         }
         return evadeAttack
     }
     
+    override func attacked() -> Bool {
+        super.attacked()
+        return evadeAttack()
+    }
 }
